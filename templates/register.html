@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">Register</h2>
+        <form method="POST" action="{{ url_for('register_page') }}">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter a unique username" required>
+            </div>            
+            <div class="mb-3">
+                <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="mb-3">
+                <label for="mobile" class="form-label">Mobile Number<span class="text-danger">*</span></label>
+                <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter your mobile number" required>
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Age<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="age" name="age" min="0" placeholder="Enter your age" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Allergies</label>
+                <div class="form-check">
+                    {% for allergy in suggested_allergies %}
+                    <input class="form-check-input" type="checkbox" name="allergies" value="{{ allergy }}" id="allergy-{{ loop.index }}">
+                    <label class="form-check-label" for="allergy-{{ loop.index }}">
+                            {{ allergy }}
+                        </label><br> {% endfor %}
+                </div>
+                <div class="mt-2">
+                    <label for="custom_allergy" class="form-label">Add Custom Allergy</label>
+                    <input type="text" class="form-control" id="custom_allergy" name="custom_allergy" placeholder="Enter custom allergy">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Health Conditions</label>
+                <div class="form-check">
+                    {% for condition in suggested_health %}
+                    <input class="form-check-input" type="checkbox" name="health_conditions" value="{{ condition }}" id="health-{{ loop.index }}">
+                    <label class="form-check-label" for="health-{{ loop.index }}">
+                            {{ condition }}
+                        </label><br> {% endfor %}
+                </div>
+                <div class="mt-2">
+                    <label for="custom_health" class="form-label">Add Custom Health Condition</label>
+                    <input type="text" class="form-control" id="custom_health" name="custom_health" placeholder="Enter custom health condition">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

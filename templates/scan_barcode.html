@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">📸 Scan Barcode</h2>
+
+            <!-- File Upload Form -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" class="mb-3">
+                        <div class="mb-3">
+                            <label for="image_file" class="form-label">Upload an Image</label>
+                            <input type="file" class="form-control" id="image_file" name="image_file" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Scan</button>
+                    </form>
+                    <small class="form-text text-muted">
+                        Supported file types: PNG, JPG, JPEG
+                    </small>
+                </div>
+            </div>
+
+            <!-- Display Results -->
+            {% if barcode %}
+            <div class="card mt-4 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5>Barcode Info</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Detected Barcode:</strong> {{ barcode }}</p>
+                    <p><strong>Type:</strong> {{ barcode_type }}</p>
+                </div>
+            </div>
+
+            <div class="card mt-4 shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5>Product Info</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Title:</strong> {{ product.title }}</p>
+                    <p><strong>Brand:</strong> {{ product.brand }}</p>
+                    <p><strong>Description:</strong> {{ product.description }}</p>
+                    <p><strong>Ingredients:</strong> {{ product.ingredients }}</p>
+                </div>
+            </div>
+
+            <div class="card mt-4 shadow-sm">
+                <div class="card-header {% if safety_report.is_safe %}bg-success{% else %}bg-danger{% endif %} text-white">
+                    <h5>Safety Check</h5>
+                </div>
+                <div class="card-body">
+                    {% if safety_report.is_safe %}
+                    <p class="text-success">✅ This product appears to be safe for you!</p>
+                    {% else %}
+                    <p class="text-danger">⚠️ Warning! This product may NOT be safe for you.</p>
+                    {% endif %}
+
+                    {% if safety_report.conflicting_allergies %}
+                    <p><strong>Conflicting Allergies:</strong></p>
+                    <ul class="list-group mb-3">
+                        {% for allergy in safety_report.conflicting_allergies %}
+                        <li class="list-group-item text-danger">❌ {{ allergy | capitalize }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if safety_report.conflicting_conditions %}
+                    <p><strong>Conflicting Health Conditions:</strong></p>
+                    <ul class="list-group mb-3">
+                        {% for condition in safety_report.conflicting_conditions %}
+                        <li class="list-group-item text-warning">⚠️ {{ condition | capitalize }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

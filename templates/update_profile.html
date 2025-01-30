@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">Update Your Profile</h2>
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('update_profile_page') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Allergies</label>
+                        <div class="form-check">
+                            {% for allergy in suggested_allergies %}
+                                <input class="form-check-input" type="checkbox" name="allergies" value="{{ allergy }}" 
+                                {% if allergy in user.allergies.split(', ') %}checked{% endif %}>
+                                <label class="form-check-label">{{ allergy }}</label><br>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-2">
+                            <label for="custom_allergy" class="form-label">Custom Allergy</label>
+                            <input type="text" class="form-control" id="custom_allergy" name="custom_allergy" placeholder="Add new allergy">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Health Conditions</label>
+                        <div class="form-check">
+                            {% for condition in suggested_health %}
+                                <input class="form-check-input" type="checkbox" name="health_conditions" value="{{ condition }}" 
+                                {% if condition in user.health_conditions.split(', ') %}checked{% endif %}>
+                                <label class="form-check-label">{{ condition }}</label><br>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-2">
+                            <label for="custom_health" class="form-label">Custom Health Condition</label>
+                            <input type="text" class="form-control" id="custom_health" name="custom_health" placeholder="Add new condition">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

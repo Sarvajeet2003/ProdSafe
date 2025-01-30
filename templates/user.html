@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">Your Profile</h2>
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Name:</strong> {{ user.name }}</p>
+                <p><strong>Mobile:</strong> {{ user.mobile }}</p>
+                <p><strong>Age:</strong> {{ user.age }}</p>
+                <p><strong>Allergies:</strong> 
+                    {% if user.allergies %}
+                        {{ user.allergies }}
+                    {% else %}
+                        None
+                    {% endif %}
+                </p>
+                <p><strong>Health Conditions:</strong> 
+                    {% if user.health_conditions %}
+                        {{ user.health_conditions }}
+                    {% else %}
+                        None
+                    {% endif %}
+                </p>
+                <a href="{{ url_for('scan_barcode') }}" class="btn btn-warning">Scan Barcode</a>
+                <a href="{{ url_for('update_profile_page') }}" class="btn btn-primary">Update Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

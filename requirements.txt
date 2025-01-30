@@ -8,3 +8,4 @@ Werkzeug==2.3.7
 gunicorn==21.2.0
 numpy<2.0.0
 opencv-python-headless==4.8.0.74
+zbar-py==3.1.1

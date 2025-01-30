@@ -84,7 +84,7 @@ pip install flask flask_sqlalchemy pyzbar opencv-python requests python-dotenv
 
 2. **Navigate** to the project folder:
    ```bash
-   cd your_project_folder
+   cd ProdSafe
    ```
 
 3. **Install Dependencies**:
